@@ -1,0 +1,371 @@
+!===============================
+! VB Script grammar.
+!
+! To create the grammar I was using Microsoft's VB Script documentation
+! available from http://msdn.microsoft.com/scripting,
+! VB Script parser from ArrowHead project http://www.tripi.com/arrowhead/,
+! and Visual Basic .Net grammar file written by Devin Cook.
+!
+! This grammar cannot cover all aspects of VBScript and may have some errors.
+! Feel free to contact me if you find any flaws in the grammar.
+!
+! Vladimir Morozov   vmoroz@hotmail.com
+!
+! USE GOLD PARSER BUILDER VERSION 2.1 AND LATER TO COMPILE THIS GRAMMAR.
+!===============================
+
+"Name"    = 'VB Script'
+"Author"  = 'John G. Kemeny and Thomas E. Kurtz'
+"Version" = '5.0'
+"About"   = 'VB Script grammar.'
+
+"Case Sensitive"  = False
+"Start Symbol"    = <Program>
+
+!===============================
+! Character sets
+!===============================
+
+{String Char}     = {Printable} - ["]
+{Date Char}       = {Printable} - [#]
+{ID Name Char}    = {Printable} - ['['']']
+{Hex Digit}       = {Digit} + [abcdef]
+{Oct Digit}       = [01234567]
+
+{WS}              = {Whitespace} - {CR} - {LF}
+{ID Tail}         = {Alphanumeric} + [_]
+
+!===============================
+! Terminals
+!===============================
+
+NewLine           = {CR}{LF} | {CR} | {LF} | ':'
+! Special white space definition. Whitespace is either space or tab, which
+! can be followed by continuation symbol '_' followed by new line character
+Whitespace        = {WS}+  | '_' {WS}* {CR}? {LF}?
+
+! Special Comment definition.
+Comment Line      = '' | 'Rem'
+
+! Literals
+StringLiteral     = '"' ( {String Char} | '""' )* '"'
+IntLiteral        = {Digit}+
+HexLiteral        = '&H' {Hex Digit}+
+OctLiteral        = '&O' {Oct Digit}+
+FloatLiteral      = {Digit}* '.' {Digit}+ ( 'E' [+-]? {Digit}+ )?
+                  | {Digit}+ 'E' [+-]? {Digit}+
+DateLiteral       = '#' {Date Char}+ '#'
+
+! Identifier is either starts with letter and followed by letter,
+! number or underscore, or it can be escaped sequence of any printable
+! characters ([] and [_$% :-) @] are valid identifiers)
+ID                = {Letter} {ID Tail}*
+                  | '[' {ID Name Char}* ']'
+! White space is not allowed to be before dot, but allowed to be after it.
+IDWithDot         = {Letter}{ID Tail}* '.'
+                  | '['{ID Name Char}*']' '.'
+
+!===============================
+! Rules
+!===============================
+
+<NL>                  ::= NewLine <NL>
+                        | NewLine
+
+<Program>             ::= <NLOpt> <GlobalStmtList>
+
+!===============================
+! Rules : Declarations
+!===============================
+
+<ClassDecl>           ::= 'Class' ID <NL> <MemberDeclList> 'End' 'Class' <NL>
+
+<MemberDeclList>      ::= <MemberDecl> <MemberDeclList>
+                        |
+
+<MemberDecl>          ::= <VarDecl>
+                        | <DimVarDecl>
+                        | <ConstDecl>
+                        | <SubDecl>
+                        | <FunctionDecl>
+                        | <PropertyDecl>
+
+! Hack: removed <DimVarDecl> from the list to avoid reduce-reduce error
+<VarDecl>             ::= <AccessModifier> <VarDeclList> <NL>
+
+<DimVarDecl>          ::= 'Dim' <VarDeclList> <NL>
+
+<VarDeclList>         ::= <VarNameDecl> ',' <VarDeclList>
+                        | <VarNameDecl>
+
+<VarNameDecl>         ::= ID '(' <ArrayRankList> ')'
+                        | ID
+
+<ArrayRankList>       ::= <IntLiteral> ',' <ArrayRankList>
+                        | <IntLiteral>
+                        |
+
+<ConstDecl>           ::= <AccessModifierOpt> 'Const' <ConstList> <NL>
+
+<ConstList>           ::= ID '=' <ConstExpr> ',' <ConstList>
+                        | ID '=' <ConstExpr>
+
+<SubDecl>             ::= <MethodAccess> 'Sub' ID <MethodArgList> <NL> <MethodStmtList> 'End' 'Sub' <NL>
+
+<FunctionDecl>        ::= <MethodAccess> 'Function' ID <MethodArgList> <NL> <MethodStmtList> 'End' 'Function' <NL>
+
+<MethodAccess>        ::= 'Public' 'Default'
+                        | <AccessModifierOpt>
+
+<AccessModifierOpt>   ::= <AccessModifier>
+                        |
+
+<AccessModifier>      ::= 'Public'
+                        | 'Private'
+
+<MethodArgList>       ::= '(' <ArgList> ')'
+                        | '(' ')'
+                        |
+
+<ArgList>             ::= <Arg> ',' <ArgList>
+                        | <Arg>
+
+<Arg>                 ::= <ArgModifier> ID '(' ')'
+                        | <ArgModifier> ID
+
+<ArgModifier>         ::= 'ByVal'
+                        | 'ByRef'
+                        |
+
+<PropertyDecl>        ::= <MethodAccess> 'Property' <PropertyAccessType> ID <MethodArgList> <NL> <MethodStmtList> 'End' 'Property'
+
+<PropertyAccessType>  ::= 'Get'
+                        | 'Let'
+                        | 'Set'
+
+!===============================
+! Rules : Statements
+!===============================
+
+<GlobalStmt>          ::= <OptionExplicit>
+                        | <ClassDecl>
+                        | <VarDecl>
+                        | <ConstDecl>
+                        | <SubDecl>
+                        | <FunctionDecl>
+                        | <BlockStmt>
+
+<MethodStmt>          ::= <ConstDecl>
+                        | <BlockStmt>
+
+<BlockStmt>           ::= <DimVarDecl>
+                        | <RedimStmt>
+                        | <IfStmt>
+                        | <SelectStmt>
+                        | <LoopStmt>
+                        | <ForStmt>
+                        | <InlineStmt> <NL>
+<InlineStmt>          ::= <AssignStmt>
+                        | <CallStmt>
+                        | <SubCallStmt>
+                        | <ErrorStmt>
+                        | <ExitStmt>
+                        | 'Erase' ID
+
+<GlobalStmtList>      ::= <GlobalStmt> <GlobalStmtList>
+                       | 
+
+<MethodStmtList>      ::= <MethodStmt> <MethodStmtList>
+                        |
+                        
+<BlockStmtList>       ::= <BlockStmt> <BlockStmtList>
+                        |
+                        
+<OptionExplicit>      ::= 'Option' 'Explicit' <NL>
+
+<ErrorStmt>           ::= 'On' 'Error' 'Resume' 'Next'
+                        | 'On' 'Error' 'GoTo' IntLiteral  ! must be 0
+
+<ExitStmt>            ::= 'Exit' 'Do'
+                        | 'Exit' 'For'
+                        | 'Exit' 'Function'
+                        | 'Exit' 'Property'
+                        | 'Exit' 'Sub'
+
+<AssignStmt>          ::= <LeftExpr> '=' <Expr>
+                        | 'Set' <LeftExpr> '=' <Expr>
+                        | 'Set' <LeftExpr> '=' 'New' <LeftExpr>
+
+! Hack: VB Script allows to have construct a = b = c, which means a = (b = c)
+! In this grammar we do not allow it in order to prevent complications with
+! interpretation of a(1) = 2, which may be considered as array element assignment
+! or a subroutine call: a ((1) = 2).
+! Note: VBScript allows to have missed parameters: a ,,2,3,
+! VM: If somebody knows a better way to do it, please let me know
+<SubCallStmt>         ::= <QualifiedID> <ConcatExprOpt> <CommaExprList>
+                        | <QualifiedID> <ConcatExprOpt>
+                        | <QualifiedID> '(' ')'
+
+<ConcatExprOpt>       ::= <ConcatExpr>
+                        |
+                        
+<CallStmt>            ::= 'Call' <LeftExpr>
+
+<LeftExpr>            ::= <QualifiedID> <IndexOrParamsList> '.' <LeftExpr>
+                        | <QualifiedID> <IndexOrParamsList>
+                        | <QualifiedID>
+
+! VB Script does not allow to have space between Identifier and dot:
+! a . b - Error ; a. b or a.b - OK
+<QualifiedID>         ::= IDWithDot <QualifiedID>
+                        | ID
+
+<IndexOrParamsList>   ::= <IndexOrParams> <IndexOrParamsList>
+                        | <IndexOrParams>
+
+<IndexOrParams>       ::= '(' <Expr> <CommaExprList> ')'
+                        | '(' <CommaExprList> ')'
+                        | '(' <Expr> ')'
+                        | '(' ')'
+
+<CommaExprList>       ::= ',' <Expr> <CommaExprList>
+                        | ',' <CommaExprList>
+                        | ',' <Expr>
+                        | ','
+
+!========= Redim Statement
+
+<RedimStmt>           ::= 'Redim' <RedimDeclList> <NL>
+                        | 'Redim' 'Preserve' <RedimDeclList> <NL>
+
+<RedimDeclList>       ::= <RedimDecl> ',' <RedimDeclList>
+                        | <RedimDecl>
+
+<RedimDecl>           ::= ID '(' <ExprList> ')'
+
+!========= If Statement
+
+<IfStmt>              ::= 'If' <Expr> 'Then' <NL> <BlockStmtList> <ElseStmtList> 'End' 'If' <NL>
+                        | 'If' <Expr> 'Then' <InlineStmt> <ElseOpt> <EndIfOpt> <NL>
+
+<ElseStmtList>        ::= 'ElseIf' <Expr> 'Then' <NL> <BlockStmtList> <ElseStmtList>
+                        | 'Else' <NL> <BlockStmtList>
+                        |
+
+<ElseOpt>             ::= 'Else' <InlineStmt>
+                        |
+
+<EndIfOpt>            ::= 'End' 'If'
+                        |
+
+!========= Loop Statement
+
+<LoopStmt>            ::= 'Do' <LoopType> <Expr> <NL> <BlockStmtList> 'Loop' <NL>
+                        | 'Do' <NL> <BlockStmtList> 'Loop' <LoopType> <Expr> <NL>
+                        | 'While' <Expr> <NL> <BlockStmtList> 'WEnd' <NL>
+
+<LoopType>            ::= 'While'
+                        | 'Until'
+
+!========= For Statement
+
+<ForStmt>             ::= 'For' ID '=' <Expr> 'To' <Expr> <StepOpt> <NL> <BlockStmtList> 'Next' <NL>
+                        | 'For' 'Each' ID 'In' <Expr> <NL> <BlockStmtList> 'Next' <NL>
+
+<StepOpt>             ::= 'Step' <Expr>
+                        |
+
+!========= Select Statement
+
+<SelectStmt>          ::= 'Select' 'Case' <Expr> <NL> <CaseStmtList> 'End' 'Select' <NL>
+
+<CaseStmtList>        ::= 'Case' <ExprList> <NLOpt> <BlockStmtList> <CaseStmtList>
+                        | 'Case' 'Else' <NLOpt> <BlockStmtList>
+                        |
+
+<NLOpt>               ::= <NL>
+                        |
+
+<ExprList>            ::= <Expr> ',' <ExprList>
+                        | <Expr>
+
+!===============================
+! Rules : Expressions
+!===============================
+
+<Expr>                ::= <ImpExpr>
+
+<ImpExpr>             ::= <ImpExpr> 'Imp' <EqvExpr>
+                        | <EqvExpr>
+
+<EqvExpr>             ::= <EqvExpr> 'Eqv' <XorExpr>
+                        | <XorExpr>
+
+<XorExpr>             ::= <XorExpr> 'Xor' <OrExpr>
+                        | <OrExpr>
+
+<OrExpr>              ::= <OrExpr> 'Or' <AndExpr>
+                        | <AndExpr>
+
+<AndExpr>             ::= <AndExpr> 'And' <NotExpr>
+                        | <NotExpr>
+
+<NotExpr>             ::= 'Not' <NotExpr>
+                        | <CompareExpr>
+
+! Note: VBScript script allows to use '=>' instead of '>=' and
+! '=<' instead of '<='. It is not included here because I think it is a bad style.
+<CompareExpr>         ::= <CompareExpr> 'Is' <ConcatExpr>
+                        | <CompareExpr> '>=' <ConcatExpr>
+                        | <CompareExpr> '<=' <ConcatExpr>
+                        | <CompareExpr> '>'  <ConcatExpr>
+                        | <CompareExpr> '<'  <ConcatExpr>
+                        | <CompareExpr> '<>' <ConcatExpr>
+                        | <CompareExpr> '='  <ConcatExpr>
+                        | <ConcatExpr>
+
+<ConcatExpr>          ::= <ConcatExpr> '&' <AddExpr>
+                        | <AddExpr>
+
+<AddExpr>             ::= <AddExpr> '+' <ModExpr>
+                        | <AddExpr> '-' <ModExpr>
+                        | <ModExpr>
+
+<ModExpr>             ::= <ModExpr> 'Mod' <IntDivExpr>
+                        | <IntDivExpr>
+
+<IntDivExpr>          ::= <IntDivExpr> '\' <MultExpr>
+                        | <MultExpr>
+
+<MultExpr>            ::= <MultExpr> '*' <UnaryExpr>
+                        | <MultExpr> '/' <UnaryExpr>
+                        | <UnaryExpr>
+
+<UnaryExpr>           ::= '-' <UnaryExpr>
+                        | '+' <UnaryExpr>
+                        | <ExpExpr>
+
+<ExpExpr>             ::= <Value> '^' <ExpExpr>
+                        | <Value>
+
+<Value>               ::= <ConstExpr>
+                        | <LeftExpr>
+                        | '(' <Expr> ')'
+
+<ConstExpr>           ::= <BoolLiteral>
+                        | <IntLiteral>
+                        | FloatLiteral
+                        | StringLiteral
+                        | DateLiteral
+                        | <Nothing>
+
+<BoolLiteral>         ::= 'True'
+                        | 'False'
+
+<IntLiteral>          ::= IntLiteral
+                        | HexLiteral
+                        | OctLiteral
+
+<Nothing>             ::= 'Nothing'
+                        | 'Null'
+                        | 'Empty'

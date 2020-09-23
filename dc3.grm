@@ -1,0 +1,238 @@
+!===============================
+! DC3 Script grammar.
+!
+! USE GOLD PARSER BUILDER VERSION 2.1 AND LATER TO COMPILE THIS GRAMMAR.
+!===============================
+
+"Name"    = 'DC3 Script'
+"Author"  = 'Lorenzi Davide'
+"Version" = '1.0'
+"About"   = 'DC3 Script grammar.'
+
+"Case Sensitive"  = False
+"Start Symbol"    = <Program>
+
+!===============================
+! Character sets
+!===============================
+
+{String Char}     = {Printable} - ["]
+{Date Char}       = {Printable} - [#]
+{ID Name Char}    = {Printable} - ['['']']
+{ID Tail}         = {Alphanumeric} + [_]
+{Hex Digit}       = {Digit} + [abcdef]
+{Oct Digit}       = [01234567]
+{WS}              = {Whitespace} - {CR} - {LF}
+
+!===============================
+! Terminals
+!===============================
+
+NewLine           = {CR}{LF} | {CR} | {LF} | ':'
+! Special white space definition. Whitespace is either space or tab, which
+! can be followed by continuation symbol '_' followed by new line character
+Whitespace        = {WS}+  | '_' {WS}* {CR}? {LF}?
+
+! Special Comment definition.
+Comment Line      = '' | 'Rem'
+
+! Literals
+StringLiteral     = '"' ( {String Char} | '""' )* '"' !cosi' ammetto il doppio apice
+IntLiteral        = {Digit}+ !Almeno una Cifra
+HexLiteral        = '&H' {Hex Digit}+ ! &H + Almeno una Cifra
+OctLiteral        = '&O' {Oct Digit}+ ! &O + Almeno una Cifra
+FloatLiteral      = {Digit}* '.' {Digit}+ ( 'E' [+-]? {Digit}+ )?
+                  | {Digit}+ 'E' [+-]? {Digit}+
+
+! Identifier is either starts with letter and followed by letter,
+! number or underscore, or it can be escaped sequence of any printable
+! characters ([] and [_$% :-) @] are valid identifiers)
+ID                = {Letter} {ID Tail}*
+                  | '[' {ID Name Char}* ']'
+
+!===============================
+! Rules
+!===============================
+
+<NL>                  ::= NewLine <NL>
+                        | NewLine
+
+<NLOpt>               ::= <NL>
+                        |
+
+<Program>             ::= <NLOpt> <GlobalStmtList>
+
+!===============================
+! Rules
+!===============================
+
+<GlobalStmtList>      ::= <GlobalStmt> <GlobalStmtList>
+                        | 
+
+<GlobalStmt>          ::= <VarDecl>
+                        | <SubDecl>
+                        | <BlockStmt>
+
+<VarDecl>             ::= <AccessModifierOpt> 'Const' <VarDeclList> <NL>
+                        | <AccessModifierOpt> 'Dim' <VarDeclList> <NL>
+                        | <AccessModifierOpt> 'Var' <VarDeclList> <NL>
+
+<AccessModifierOpt>   ::= <AccessModifier>
+                        |
+
+<AccessModifier>      ::= 'Public'
+                        | 'Private'
+                        | 'Reserved' !usato all'inizio nella definizione delle var. riservate al comp. poi viene disabilitato
+
+<VarDeclList>         ::= ID '=' <ConstExpr> ',' <VarDeclList>
+                        | ID ',' <VarDeclList>
+                        | ID '=' <ConstExpr>
+                        | ID
+
+<ConstExpr>           ::= <BoolLiteral>
+                        | <IntLiteral>
+                        | FloatLiteral
+                        | StringLiteral
+                        | <Nothing>
+
+<BoolLiteral>         ::= 'True'
+                        | 'False'
+
+<IntLiteral>          ::= IntLiteral
+                        | HexLiteral
+                        | OctLiteral
+
+<Nothing>             ::= 'Nothing'
+                        | 'Null'
+                        | 'Empty'
+
+<SubDecl>             ::= <AccessModifierOpt> 'Sub' ID <MethodArgList> <NL> <MethodStmtList> 'End' 'Sub' <NL>
+                        | <AccessModifierOpt> 'Function' ID <MethodArgList> <NL> <MethodStmtList> 'End' 'Function' <NL>
+
+<MethodArgList>       ::= '(' <ArgList> ')'
+                        | '(' ')'
+
+<ArgList>             ::= <Arg> ',' <ArgList>
+                        | <Arg>
+
+<Arg>                 ::= <ArgModifier> ID
+
+<ArgModifier>         ::= 'ByVal'
+                        | 'ByRef'
+                        |
+
+<BlockStmt>           ::= <InlineStmt> <NL>
+                        | <IfStmt>
+						| <LoopStmt>
+
+<BlockStmtList>       ::= <BlockStmt> <BlockStmtList>
+                        |
+
+<MethodStmtList>      ::= <MethodStmt> <MethodStmtList>
+                        |
+
+<MethodStmt>          ::= <VarDecl>
+                        | <BlockStmt>
+
+<InlineStmt>          ::= <AssignStmt>
+                        | <SubCallStmt>
+						| 'Exit' '(' ')'
+
+<AssignStmt>          ::= <QualifiedID> '=' <Expr>
+                        | <QualifiedID> '+=' <Expr>
+                        | <QualifiedID> '-=' <Expr>
+                        | <QualifiedID> '++'
+                        | <QualifiedID> '--'
+
+<SubCallStmt>         ::= <QualifiedID> '(' <ExprList> ')'
+
+<QualifiedID>         ::= ID ! qui si possono mettere i punti se si vuole
+
+<LeftExpr>            ::= <QualifiedID>
+                        | <QualifiedID> '(' <ExprList> ')' ! array o chiamata a funzione
+
+<ExprList>            ::= <Expr> <CommaExprList>
+                        | <Expr>
+                        |
+
+<CommaExprList>       ::= ',' <Expr> <CommaExprList>
+                        | ',' <Expr>
+
+
+!----- Rules : Expressions
+
+<Expr>                ::= <ImpExpr>
+
+<ImpExpr>             ::= <ImpExpr> 'Imp' <EqvExpr>
+                        | <EqvExpr>
+
+<EqvExpr>             ::= <EqvExpr> 'Eqv' <XorExpr>
+                        | <XorExpr>
+
+<XorExpr>             ::= <XorExpr> 'Xor' <OrExpr>
+                        | <OrExpr>
+
+<OrExpr>              ::= <OrExpr> 'Or' <AndExpr>
+                        | <AndExpr>
+
+<AndExpr>             ::= <AndExpr> 'And' <NotExpr>
+                        | <NotExpr>
+
+<NotExpr>             ::= 'Not' <NotExpr>
+                        | <CompareExpr>
+
+<CompareExpr>         ::= <CompareExpr> '>=' <ConcatExpr>
+                        | <CompareExpr> '<=' <ConcatExpr>
+                        | <CompareExpr> '>'  <ConcatExpr>
+                        | <CompareExpr> '<'  <ConcatExpr>
+                        | <CompareExpr> '<>' <ConcatExpr>
+                        | <CompareExpr> '='  <ConcatExpr>
+                        | <ConcatExpr>
+
+<ConcatExpr>          ::= <ConcatExpr> '&' <AddExpr>
+                        | <AddExpr>
+
+<AddExpr>             ::= <AddExpr> '+' <ModExpr>
+                        | <AddExpr> '-' <ModExpr>
+                        | <ModExpr>
+
+<ModExpr>             ::= <ModExpr> 'Mod' <IntDivExpr>
+                        | <IntDivExpr>
+
+<IntDivExpr>          ::= <IntDivExpr> '\' <MultExpr>
+                        | <MultExpr>
+
+<MultExpr>            ::= <MultExpr> '*' <UnaryExpr>
+                        | <MultExpr> '/' <UnaryExpr>
+                        | <UnaryExpr>
+
+<UnaryExpr>           ::= '-' <UnaryExpr>
+                        | '+' <UnaryExpr>
+                        | <ExpExpr>
+
+<ExpExpr>             ::= <Value> '^' <ExpExpr>
+                        | <Value>
+
+<Value>               ::= <ConstExpr>
+                        | <LeftExpr>
+                        | '(' <Expr> ')'
+
+
+!========= If Statement
+
+
+<IfStmt>              ::= 'If' <Expr> 'Then' <NL> <BlockStmtList> <ElseStmtList> 'End' 'If' <NL>
+                        | 'If' <Expr> 'Then' <InlineStmt> <ElseOpt> <EndIfOpt> <NL>
+
+<ElseStmtList>        ::= 'ElseIf' <Expr> 'Then' <NL> <BlockStmtList> <ElseStmtList>
+                        | 'Else' <NL> <BlockStmtList>
+                        |
+
+<ElseOpt>             ::= 'Else' <InlineStmt>
+                        |
+
+<EndIfOpt>            ::= 'End' 'If'
+                        |
+!============== Loops
+
+<LoopStmt>            ::= 'While' <Expr> <NL> <BlockStmtList> 'WEnd' <NL>

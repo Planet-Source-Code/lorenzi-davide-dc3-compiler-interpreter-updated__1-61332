@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="GENERATOR" content="DHE Editor v.2.3.19 - http://www.hexagora.com">
+<meta name="KEYWORDS" content="DC3 Language, msgbox, while, if, rnd, recursion, print, VB">
+<meta name="DESCRIPTION" content="DC3 Language, msgbox, while, if, rnd, recursion, print, VB">
+<meta name="AUTHOR" content="Lorenzi Davide 2004-2005 ">
+<meta name="COPYRIGHT" content="Lorenzi Davide 2004-2005 ">
+<script language="javascript" type="text/javascript">
+<!--
+var isNS=document.layers?true:false;
+var isIE=(document.all!=null)||(navigator.userAgent.indexOf('MSIE')!=-1);
+var isDom2=document.getElementById;
+var fVers=parseFloat(navigator.appVersion);
+if ((isNS && fVers<4)||(isIE && fVers<4))
+    alert("Your browser is very old. Please upgrade it if you want to see this page correctly.");
+
+//-->
+</script>
+
+<title>DC3 Language, msgbox, while, if, rnd, recursion, print, VB</title>
+<style type="text/css">
+body {margin: 0px; padding: 0px;}
+.verdana100FFFFFFt {font-family: Verdana, Arial, Helvetica; font-size: 13px; color: #000000; text-decoration: none;}
+.trebuchetms100FFFFFFt {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 13px; color: #000000; text-decoration: none;}
+.trebuchetms10FF0000FFFFFFt {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 13px; color: #0000FF; text-decoration: none;}
+.trebuchetms8808080FFFFFFt {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 11px; color: #808080; text-decoration: none;}
+.trebuchetms8FF0000FFFFFFtu {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 11px; color: #0000FF; text-decoration: underline;}
+.trebuchetms120FFFFFFtb {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 16px; color: #000000; font-weight: bold; text-decoration: none;}
+
+</style>
+
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" alink="#FF0000" vlink="#800080">
+
+<table border="0" cellspacing="0" cellpadding="0"><tr><td><img src="files/blank.gif" width="5" height="100" border="0" alt=""></td><td><img src="files/blank.gif" width="496" height="1" border="0" alt=""></td></tr><tr><td><img src="files/blank.gif" width="1" height="1098" border="0" alt=""></td><td width="496" align="justify" valign="top"><span class="trebuchetms100FFFFFFt">DC3 language is very similar to VB script; variables have no type and the type is implicit. It recognizes some internal functions: print, msgbox, inputbox, clng, cstr, exit, rnd<br>You can define variables, functions, variables in the order you want and the compiler is not case sensitive.<br><br></span><span class="trebuchetms10FF0000FFFFFFt">dim a="",b,c=&amp;h10</span><span class="trebuchetms100FFFFFFt"><br><br>You have declared a string variable 'a', a generic variable 'b' and a numeric variable c.<br><br></span><span class="trebuchetms10FF0000FFFFFFt">sub message(a)<br>    msgbox (a)<br>end sub<br>message ("bye bye!")<br></span><span class="trebuchetms100FFFFFFt"><br>this small program shows a message box with the "bye bye!" string.<br><br></span><span class="trebuchetms10FF0000FFFFFFt">function sum(a,b)<br>    sum=a+b<br>end function<br>msgbox (sum(10,10)+sum(20,20))</span><span class="trebuchetms100FFFFFFt"><br></span><span class="trebuchetms10FF0000FFFFFFt">msgbox (sum("a","b"))</span><span class="trebuchetms100FFFFFFt"><br><br>this program returns 60 -&gt; 10+10+20+20 and "ab" --&gt; "a" + "b"<br><br></span><span class="trebuchetms10FF0000FFFFFFt">dim a="hello "<br>msgbox (a+"world")<br></span><span class="trebuchetms100FFFFFFt"><br>this sample shows "hello world" on the screen<br><br></span><span class="trebuchetms10FF0000FFFFFFt">dim a=10<br>a++<br>msgbox (a)<br></span><span class="trebuchetms100FFFFFFt"><br>this sample returns 11<br><br></span><span class="trebuchetms10FF0000FFFFFFt">sub writenum(n)<br>    if n&gt;0 then<br>        writenum(n-1)<br>    end if<br>    print(n)<br>end sub<br>writenum(10)<br></span><span class="trebuchetms100FFFFFFt"><br>this program writes 0,1,2,3,4,5,6,7,8,9,10 to the console using recursion.<br><br></span><span class="trebuchetms10FF0000FFFFFFt">dim s<br>s=inputbox ("Write your name")<br>msgbox ("Your name is  " + s)<br></span><span class="trebuchetms100FFFFFFt"><br>this program writes your name<br><br></span><span class="trebuchetms10FF0000FFFFFFt">dim a=0,c=0<br>while (a&lt;10)<br>    c+=a<br>    a++<br>wend<br>msgbox (c)<br></span><span class="trebuchetms100FFFFFFt"><br>this program repeat a sum for 10 times returning 45 as result</span></td></tr></table><div id="ldheheaderPicture1" style="position: absolute; left: 0px; top: 0px;" align="left">
+<img id="headerPicture1" name="headerPicture1" src="files/inc_header_headerpicture1.png" width="501" height="76" border="0" alt=""></div>
+<div id="ldheheaderLabel2" style="position: absolute; left: 70px; top: 35px; width: 426px; height: 16px; text-align: right;" align="left">
+<span class="trebuchetms8808080FFFFFFt">Copyright 2005 by Lorenzi Davide, created using </span><span class="trebuchetms8FF0000FFFFFFtu"><a href="http://www.hexagora.com" target="_new" class="trebuchetms8FF0000FFFFFFtu">DHE Editor 2.x</a></span></div>
+<div id="ldheLabel1" style="position: absolute; left: 5px; top: 55px; width: 496px; height: 22px; text-align: justify;" align="left">
+<span class="trebuchetms120FFFFFFtb">The language</span></div>
+</body>
+</html>
+

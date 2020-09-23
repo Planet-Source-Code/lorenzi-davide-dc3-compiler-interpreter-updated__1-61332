@@ -1,0 +1,65 @@
+<public:component>
+<public:attach event="onpropertychange" onevent="propertyChanged()" />
+<public:attach event="onbeforeprint" for="window" onevent="beforePrint()" />
+<public:attach event="onafterprint" for="window" onevent="afterPrint()" />
+<script>
+
+/*
+ * PNG Behavior
+ *
+ * This script was created by Erik Arvidsson (erik(at)eae.net)
+ * for WebFX (http://webfx.eae.net)
+ * Copyright 2002
+ * 
+ * Modified by Lorenzi Davide (http://www.hexagora.com) for DHE Editor Site Builder
+ *
+ */
+
+var supported = /MSIE (5\.[56789])|(6\.)/.test(navigator.userAgent) && navigator.platform == "Win32"; 
+var blankSrc = "blank.gif";
+var realSrc=null;
+var blockFix=false;
+
+if (supported) fixImage();
+
+function propertyChanged()
+{
+	if (supported && event.propertyName == 'src') {
+		fixImage();
+	}
+}
+
+function fixImage() {
+	// blocco per stampa
+	if (blockFix) return;
+
+	// get src
+	var src = element.src;
+
+	// test for png
+	if (/\.png$/.test(src.toLowerCase())) {
+		// salva il riferimento all'src originale
+		if (!realSrc) realSrc=src;
+		// set blank image
+		element.src = blankSrc;
+		// set filter
+		element.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + src + "')";
+	}
+}
+
+function beforePrint() {
+	if (realSrc) {
+		blockFix = true;
+		element.src = realSrc;
+		element.runtimeStyle.filter = '';
+		blockFix = false;
+	}
+}
+
+function afterPrint() {
+	if (realSrc) {
+		element.src = realSrc;
+	}
+}
+</script>
+</public:component>

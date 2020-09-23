@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="GENERATOR" content="DHE Editor v.2.3.19 - http://www.hexagora.com">
+<meta name="KEYWORDS" content="DC3 Instructions, Virtual Machine, IJump, IPop, IReturn. IConst, IFrame, IFCall, IStore, IFetch">
+<meta name="DESCRIPTION" content="DC3 Instructions, Virtual Machine, IJump, IPop, IReturn. IConst, IFrame, IFCall, IStore, IFetch">
+<meta name="AUTHOR" content="Lorenzi Davide 2004-2005 ">
+<meta name="COPYRIGHT" content="Lorenzi Davide 2004-2005 ">
+<script language="javascript" type="text/javascript">
+<!--
+var isNS=document.layers?true:false;
+var isIE=(document.all!=null)||(navigator.userAgent.indexOf('MSIE')!=-1);
+var isDom2=document.getElementById;
+var fVers=parseFloat(navigator.appVersion);
+if ((isNS && fVers<4)||(isIE && fVers<4))
+    alert("Your browser is very old. Please upgrade it if you want to see this page correctly.");
+
+//-->
+</script>
+
+<title>DC3 Instructions, Virtual Machine, IJump, IPop, IReturn. IConst, IFrame, IFCall, IStore, IFetch</title>
+<style type="text/css">
+body {margin: 0px; padding: 0px;}
+.verdana100FFFFFFt {font-family: Verdana, Arial, Helvetica; font-size: 13px; color: #000000; text-decoration: none;}
+.trebuchetms100FFFFFFt {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 13px; color: #000000; text-decoration: none;}
+.couriernew90FFFFFFt {font-family: "Courier New", Courier, Monospace; font-size: 12px; color: #000000; text-decoration: none;}
+.trebuchetms100FFFFFFtb {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 13px; color: #000000; font-weight: bold; text-decoration: none;}
+.trebuchetms100FFFFFFtu {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 13px; color: #000000; text-decoration: underline;}
+.trebuchetms8808080FFFFFFt {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 11px; color: #808080; text-decoration: none;}
+.trebuchetms8FF0000FFFFFFtu {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 11px; color: #0000FF; text-decoration: underline;}
+.trebuchetms120FFFFFFtb {font-family: "Trebuchet MS", Verdana, sans-serif; font-size: 16px; color: #000000; font-weight: bold; text-decoration: none;}
+
+</style>
+
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" alink="#FF0000" vlink="#800080">
+
+<table border="0" cellspacing="0" cellpadding="0"><tr><td><img src="files/blank.gif" width="5" height="100" border="0" alt=""></td><td><img src="files/blank.gif" width="493" height="1" border="0" alt=""></td><td><img src="files/blank.gif" width="3" height="1" border="0" alt=""></td></tr><tr><td><img src="files/blank.gif" width="1" height="278" border="0" alt=""></td><td width="496" align="justify" valign="top" colspan="2"><table border="0" cellspacing="1" cellpadding="0" bgcolor="#E3E3E3"><tr><td width="494" height="276" bgcolor="#FFFFFF" align="justify" valign="top"><span class="trebuchetms100FFFFFFt">The&nbsp;VM&nbsp;CPU&nbsp;understands&nbsp;16&nbsp;basic&nbsp;instructions:<br><br></span><span class="couriernew90FFFFFFt">ebci_INop&nbsp;&nbsp;&nbsp;&nbsp;'..............................................<br>ebci_IConst&nbsp;&nbsp;'type,val......................................<br>ebci_IFrame&nbsp;&nbsp;'..............................................<br>ebci_IFCall&nbsp;&nbsp;'addr,npars....................................<br>ebci_IPCall&nbsp;&nbsp;'id&nbsp;pfunc......................................<br>ebci_INData&nbsp;&nbsp;'n.&nbsp;var&nbsp;to&nbsp;alloc...............................<br>ebci_IStore&nbsp;&nbsp;'offset,&nbsp;bLocal................................<br>ebci_IFetch&nbsp;&nbsp;'offset,&nbsp;bLocal................................<br>ebci_IChop&nbsp;&nbsp;&nbsp;'..............................................<br>ebci_IReturn&nbsp;'..............................................<br>ebci_IJump&nbsp;&nbsp;&nbsp;'addr..........................................<br>ebci_IEnd&nbsp;&nbsp;&nbsp;&nbsp;'..............................................<br>ebci_IBinOp&nbsp;&nbsp;'opcode........................................<br>ebci_IUnOp&nbsp;&nbsp;&nbsp;'opcode........................................<br>ebci_IRow&nbsp;&nbsp;&nbsp;&nbsp;'row&nbsp;(only&nbsp;for&nbsp;debug&nbsp;purpose)..................<br>ebci_IPopJF&nbsp;&nbsp;'addr..........................................<br></span></td></tr></table></td></tr><tr><td><img src="files/blank.gif" width="1" height="22" border="0" alt=""></td><td></td><td></td></tr><tr><td><img src="files/blank.gif" width="1" height="1080" border="0" alt=""></td><td width="493" align="justify" valign="top"><span class="trebuchetms100FFFFFFtb">INop</span><span class="trebuchetms100FFFFFFt"><br>No operation, not used ;-).<br><br></span><span class="trebuchetms100FFFFFFtb">IConst (type,val)</span><span class="trebuchetms100FFFFFFt"><br>It pushes a constant onto the stack.<br><br></span><span class="trebuchetms100FFFFFFtb">IFrame</span><span class="trebuchetms100FFFFFFt"><br>It facilitates IFCall/IReturn by saving the current top of variables stack in anticipation of a IFCall statement and saves the current BP pointer (Base Pointer for variables). See IFCall/IReturn.<br><br></span><span class="trebuchetms100FFFFFFtb">IFCall (address, npars)</span><span class="trebuchetms100FFFFFFt"><br>It performs a high level function call facility. The </span><span class="trebuchetms100FFFFFFtb">address</span><span class="trebuchetms100FFFFFFt"> operand specifies the next instruction address to execute. The </span><span class="trebuchetms100FFFFFFtb">npars</span><span class="trebuchetms100FFFFFFt"> is used to allocate the local variables for function/sub parameters.<br><br></span><span class="trebuchetms100FFFFFFtb">IPCall (id p.func)</span><span class="trebuchetms100FFFFFFt"><br>It executes a private (internal function) given its code and make an automatic IReturn instruction also.<br><br></span><span class="trebuchetms100FFFFFFtb">INData (n)</span><span class="trebuchetms100FFFFFFt"><br>It creates n entries in the top of stack for variables.<br><br></span><span class="trebuchetms100FFFFFFtb">IStore (offset,blocal)</span><span class="trebuchetms100FFFFFFt"><br>It pops the top item from the stack and stores it in the variable referenced by BP and offset.<br><br></span><span class="trebuchetms100FFFFFFtb">IFetch (offset,blocal)<br></span><span class="trebuchetms100FFFFFFt">It retrieves a variable from the stack using the BP and offset and pushes it onto the stack.<br><br></span><span class="trebuchetms100FFFFFFtb">IChop</span><span class="trebuchetms100FFFFFFt"><br>It discards the top element from the stack by popping it into oblivion.<br>Used after a </span><span class="trebuchetms100FFFFFFtu">IPCall or IFCall sub</span><span class="trebuchetms100FFFFFFt">.<br><br></span><span class="trebuchetms100FFFFFFtb">IReturn</span><span class="trebuchetms100FFFFFFt"><br>It returns from a function/sub, leaving the return value on the top of the stack. It restore the PC and BP counters and the local variable pool. See IFCall and IFrame.<br><br></span><span class="trebuchetms100FFFFFFtb">IJump (address)</span><span class="trebuchetms100FFFFFFt"><br>It jumps to the specified address<br><br></span><span class="trebuchetms100FFFFFFtb">IEnd</span><span class="trebuchetms100FFFFFFt"><br>It terminates the program<br><br></span><span class="trebuchetms100FFFFFFtb">IBinOp (opcode)</span><span class="trebuchetms100FFFFFFt"><br>It pops the top two items from the stack, applies the opcode and pushes the result onto the stack. The two operands must be of the same type.<br><br></span><span class="trebuchetms100FFFFFFtb">IUnOp (opcode)</span><span class="trebuchetms100FFFFFFt"><br>It pops one element from the stack, applies the unary opcode and pushes the result onto the stack.<br><br></span><span class="trebuchetms100FFFFFFtb">IRow (row)</span><span class="trebuchetms100FFFFFFt"><br>It serves only for debug purpose; it tells the compiler the row you are executing based on the source file so the cRunTimeError can give you the row of the error.<br><br></span><span class="trebuchetms100FFFFFFtb">IPopJF (address)</span><span class="trebuchetms100FFFFFFt"><br>It pops the top of the stack and if its value is False it jump to address. This instruction is used when translating the 'if', 'for', 'while' statements.</span></td><td></td></tr></table><div id="ldheheaderPicture1" style="position: absolute; left: 0px; top: 0px;" align="left">
+<img id="headerPicture1" name="headerPicture1" src="files/inc_header_headerpicture1.png" width="501" height="76" border="0" alt=""></div>
+<div id="ldheheaderLabel2" style="position: absolute; left: 70px; top: 35px; width: 426px; height: 16px; text-align: right;" align="left">
+<span class="trebuchetms8808080FFFFFFt">Copyright 2005 by Lorenzi Davide, created using </span><span class="trebuchetms8FF0000FFFFFFtu"><a href="http://www.hexagora.com" target="_new" class="trebuchetms8FF0000FFFFFFtu">DHE Editor 2.x</a></span></div>
+<div id="ldheLabel1" style="position: absolute; left: 5px; top: 55px; width: 496px; height: 22px; text-align: justify;" align="left">
+<span class="trebuchetms120FFFFFFtb">The Virtual Machine Instruction Set</span></div>
+</body>
+</html>
+
