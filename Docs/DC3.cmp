@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<XMLConfig><info>Chm Maker project</info>
+<group name="Contents">
+ <group name="0">
+  <param name="Caption">Introduction</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ </group>
+ <group name="1">
+  <param name="Caption">Introduction 2</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro2.htm</param>
+ </group>
+ <group name="2">
+  <param name="Caption">Features</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\features.htm</param>
+ </group>
+ <group name="3">
+  <param name="Caption">Classes</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="4">
+  <param name="Caption">Classes Ex.</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classesEx.htm</param>
+ </group>
+ <group name="5">
+  <param name="Caption">VM Instructions</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="6">
+  <param name="Caption">Extend the compiler</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\extend.htm</param>
+ </group>
+ <group name="7">
+  <param name="Caption">The Language</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <param name="Count">8</param>
+</group>
+<group name="Keywords">
+ <group name="0">
+  <param name="Caption">BNF</param>
+  <param name="Phrase">BNF</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\features.htm</param>
+ </group>
+ <group name="1">
+  <param name="Caption">cByteCode</param>
+  <param name="Phrase">cByteCode</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="2">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">cByteCode</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="3">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">cByteCode</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classesEx.htm</param>
+ </group>
+ <group name="4">
+  <param name="Caption">compiler</param>
+  <param name="Phrase">compiler</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ </group>
+ <group name="5">
+  <param name="Caption">DC3 Introduction, compiler, interpreter</param>
+  <param name="Phrase">compiler</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ </group>
+ <group name="6">
+  <param name="Caption">DC3 Introduction, compiler, interpreter</param>
+  <param name="Phrase">compiler</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro2.htm</param>
+ </group>
+ <group name="7">
+  <param name="Caption">cProgram</param>
+  <param name="Phrase">cProgram</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="8">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">cProgram</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="9">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">cProgram</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classesEx.htm</param>
+ </group>
+ <group name="10">
+  <param name="Caption">cReduction</param>
+  <param name="Phrase">cReduction</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="11">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">cReduction</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="12">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">cReduction</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classesEx.htm</param>
+ </group>
+ <group name="13">
+  <param name="Caption">DC3 classes</param>
+  <param name="Phrase">DC3 classes</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="14">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">DC3 classes</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classes.htm</param>
+ </group>
+ <group name="15">
+  <param name="Caption">DC3 classes, cProgram, cReduction, cByteCode</param>
+  <param name="Phrase">DC3 classes</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\classesEx.htm</param>
+ </group>
+ <group name="16">
+  <param name="Caption">DC3 features</param>
+  <param name="Phrase">DC3 features</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\features.htm</param>
+ </group>
+ <group name="17">
+  <param name="Caption">DC3 Instructions</param>
+  <param name="Phrase">DC3 Instructions</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="18">
+  <param name="Caption">DC3 Introduction</param>
+  <param name="Phrase">DC3 Introduction</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ </group>
+ <group name="19">
+  <param name="Caption">DC3 Introduction, compiler, interpreter</param>
+  <param name="Phrase">DC3 Introduction</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ </group>
+ <group name="20">
+  <param name="Caption">DC3 Introduction, compiler, interpreter</param>
+  <param name="Phrase">DC3 Introduction</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro2.htm</param>
+ </group>
+ <group name="21">
+  <param name="Caption">DC3 Language</param>
+  <param name="Phrase">DC3 Language</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <group name="22">
+  <param name="Caption">Extend DC3 compiler</param>
+  <param name="Phrase">Extend DC3 compiler</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\extend.htm</param>
+ </group>
+ <group name="23">
+  <param name="Caption">if</param>
+  <param name="Phrase">if</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <group name="24">
+  <param name="Caption">IFCall</param>
+  <param name="Phrase">IFCall</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="25">
+  <param name="Caption">IFetch</param>
+  <param name="Phrase">IFetch</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="26">
+  <param name="Caption">IFrame</param>
+  <param name="Phrase">IFrame</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="27">
+  <param name="Caption">IJump</param>
+  <param name="Phrase">IJump</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="28">
+  <param name="Caption">interpreter</param>
+  <param name="Phrase">interpreter</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ </group>
+ <group name="29">
+  <param name="Caption">DC3 Introduction, compiler, interpreter</param>
+  <param name="Phrase">interpreter</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ </group>
+ <group name="30">
+  <param name="Caption">DC3 Introduction, compiler, interpreter</param>
+  <param name="Phrase">interpreter</param>
+  <param name="Level">1</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro2.htm</param>
+ </group>
+ <group name="31">
+  <param name="Caption">IPop</param>
+  <param name="Phrase">IPop</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="32">
+  <param name="Caption">IReturn. IConst</param>
+  <param name="Phrase">IReturn. IConst</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="33">
+  <param name="Caption">IStore</param>
+  <param name="Phrase">IStore</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="34">
+  <param name="Caption">msgbox</param>
+  <param name="Phrase">msgbox</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <group name="35">
+  <param name="Caption">print</param>
+  <param name="Phrase">print</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <group name="36">
+  <param name="Caption">recursion</param>
+  <param name="Phrase">recursion</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <group name="37">
+  <param name="Caption">rnd</param>
+  <param name="Phrase">rnd</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <group name="38">
+  <param name="Caption">VB</param>
+  <param name="Phrase">VB</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <group name="39">
+  <param name="Caption">Virtual Machine</param>
+  <param name="Phrase">Virtual Machine</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\instructions.htm</param>
+ </group>
+ <group name="40">
+  <param name="Caption">while</param>
+  <param name="Phrase">while</param>
+  <param name="Level">0</param>
+  <param name="FileName">D:\DavPrg\LProg\src\DavComp3\Docs\Export\language.htm</param>
+ </group>
+ <param name="Count">41</param>
+</group>
+<group name="KeywordsFinder">
+ <param name="UseMeta">1</param>
+ <param name="UseBold">1</param>
+ <param name="UseItalic">1</param>
+ <param name="UseUnder">1</param>
+ <param name="UseHTag">1</param>
+ <param name="UseTabHeader">1</param>
+ <param name="MaxKeyLength">32</param>
+ <param name="LiveUpdate">1</param>
+</group>
+<group name="Customize">
+ <param name="MainTitle">Function Analizer Help</param>
+ <param name="DefaultPage">D:\DavPrg\LProg\src\DavComp3\Docs\Export\intro.htm</param>
+ <param name="Left">0</param>
+ <param name="Top">0</param>
+ <param name="Width">0</param>
+ <param name="Heigth">0</param>
+ <param name="HideShow">0</param>
+ <param name="Back">1</param>
+ <param name="Forward">1</param>
+ <param name="Stop">1</param>
+ <param name="Refresh">1</param>
+ <param name="Options">0</param>
+ <param name="Print">1</param>
+ <param name="Font">0</param>
+ <param name="Locate">0</param>
+ <param name="Home">1</param>
+ <param name="HomePage"></param>
+ <param name="Jump1">0</param>
+ <param name="Jump1Page"></param>
+ <param name="Jump1Title"></param>
+ <param name="Jump2">0</param>
+ <param name="Jump2Page"></param>
+ <param name="Jump2Title"></param>
+ <param name="Search">1</param>
+ <param name="AdditionalFiles"></param>
+</group>
+</XMLConfig>

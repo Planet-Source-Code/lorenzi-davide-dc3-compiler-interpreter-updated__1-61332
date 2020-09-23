@@ -1,0 +1,25 @@
+[DHE 2.0 Project File]
+file1=classes.dhe
+file2=classesEx.dhe
+file3=extend.dhe
+file4=features.dhe
+file5=inc_header.dhe
+file6=index.dhe
+file7=instructions.dhe
+file8=intro.dhe
+file9=intro2.dhe
+file10=language.dhe
+startpage=index
+[Export Options]
+uniquecss=0
+expdir=Export
+expfiles=Export\files
+expcssfile=0
+expjsfile=0
+exppng32=0
+expcommonback=
+expcommonfooter=
+[Guides]
+HGuide1=100
+VGuide1=5
+VGuide2=500
